@@ -23,12 +23,12 @@ var main = function(toDoObjects) {
             $("main .content").empty(); 
             
             if ($element.parent().is(":nth-child(1)")) {
-                $content = $("<ul id='freshList'>");
+                $content = $("<ul id='new'>");
                 for (i = toDos.length - 1; i >= 0; i--) {
                     $content.append($("<li>").text(toDos[i]));
                 }
             } else if ($element.parent().is(":nth-child(2)")) {
-                $content = $("<ul id='agedList'>");
+                $content = $("<ul id='old'>");
                 toDos.forEach(function(todo) {
                     $content.append($("<li>").text(todo));
                 });
@@ -63,7 +63,7 @@ var main = function(toDoObjects) {
 
                 tagObjects.forEach(function(tag) {
                     var $tagName = $("<h3>").text(tag.name),
-                        $content = $("<ul id='tagList'>");
+                        $content = $("<ul id='tag'>");
                     tag.toDos.forEach(function(description) {
                         var $li = $("<li>").text(description);
                         $content.append($li);
@@ -122,20 +122,20 @@ var main = function(toDoObjects) {
 
     
     socket.on("newToDO", function(data) {
-        var $new = $("#freshList"),
-            $old = $("#agedList"),
-            $tagTab = $("#tagList"),
+        var $new1 = $("#new"),
+            $old1 = $("#old"),
+            $tag1 = $("#tag"),
             $myDescription = data.description,
             $myTag = data.tags,
             $newItem = $("<li>").text($myDescription).hide();
         
-        if (($new.length) > 0) {
-            $new.prepend($newItem);
+        if (($new1.length) > 0) {
+            $new1.prepend($newItem);
             $newItem.slideDown(500);
-        } else if (($old.length) > 0) {
-            $old.append($newItem);
+        } else if (($old1.length) > 0) {
+            $old1.append($newItem);
             $newItem.slideDown(500);
-        } else if (($tagTab.length) > 0) {
+        } else if (($tag1.length) > 0) {
             $("main .content").append($("<h3>").text($myTag));
             $("main .content").append($newItem);
             $newItem.slideDown(500);

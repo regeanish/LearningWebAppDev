@@ -25,9 +25,8 @@ server.listen(3000);
 console.log("listening on port : 3000");
 
 io.on("connection", function(socket) {
-    console.log("User connected");
+    console.log("connected");
     socket.on("add", function(data) {
-        console.log("Emit");
         io.sockets.emit("newToDO", data);
     });
 });
